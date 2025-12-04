@@ -77,55 +77,5 @@ class RecipeProvider extends ChangeNotifier{
   }
 }
 
-  // Future<void> updateRecipe(Recipe recipe)async{
-  //   final success= await _service.updateRecipe(recipe);
-  //   if(success != null){
-  //     final index= _allRecipe.indexWhere((r)=> r.id==success.id);
-  //     if(index != -1){
-  //       _allRecipe[index]=success;
-  //       notifyListeners();
-  //     }
-  //     applyFilters();
-      
-  //   }else {
-  //     throw Exception("failed to load");
-  //     }
-      
-    
-  // }
-// }
-//   Future<void> updateRecipe(Recipe recipe) async {
-//     final result = await _service.updateRecipe(recipe);
-
-//     final index = _allRecipe.indexWhere((r) => r.id == recipe.id);
-
-//     if (index != -1) {
-//       _allRecipe[index] = result;
-//       notifyListeners();
-//     }
-//   }
-//   Future<void> updateRecipe (Recipe recipe)async{
-//     Recipe newRecipe=await _service.updateRecipe(recipe.id, recipe);
-//   }
-//   // Future<bool> updateRecipe(
-//     int id,String name, int servings,List<String> instructions)async{
-//     final data={
-//       "name":name,
-//       "servings":servings,
-//       "instructions":instructions,
-//     };
-//     bool success= await _service.updateRecipe(id, data);
-//     if(success){
-//       int index= _allRecipe.indexWhere((test)=> test.id==id);
-
-//       if(index != -1){
-//         _allRecipe[index].name=name;
-//         _allRecipe[index].servings=servings;
-//         _allRecipe[index].instructions=instructions;
-//         notifyListeners();
-
-//       }
-//     }
-//     return success;
-  }
+ 
  
