@@ -1,32 +1,53 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:recipe_application/models/user.dart';
-
 
 class AuthService {
-  final Dio dio= Dio();
-  final  _storage=const FlutterSecureStorage();
+  final Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: "https://dummyjson.com",
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    ),
+  );
 
-  Future<User?> login(String username,String password)async{
-    try{
-      final response= await dio.post("https://dummyjson.com/auth/login",
-      data: {"username":username,
-      "password":password},options: Options(headers: {"Content-Type":"application/json"}));
-      if(response.statusCode==200){
-        return User.fromJson(response.data);
-       
-      }else{
-        return null;
+  Future<Map<String, dynamic>> login(String username, String password) async {
+    try {
+      final response = await _dio.post(
+        "/auth/login",
+        data: {
+          "username": username.trim(),
+          "password": password.trim(),
+        },
+      );
+
+      return {
+        "success": true,
+        "data": response.data,
+      };
+
+    } on DioException catch (e) {
+      // Network Issue
+      if (e.type == DioExceptionType.connectionError) {
+        return {"success": false, "message": "No internet connection"};
       }
-    }catch(e){
-      return null;
-    }
 
-  }
-  Future<void> logout(BuildContext context)async{
-    await _storage.delete(key: "access_token");
-    await _storage.delete(key: "refresh_token");
-    Navigator.pushReplacementNamed(context, '/signin');
+      // Timeout
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.receiveTimeout) {
+        return {"success": false, "message": "Connection timeout"};
+      }
+
+      // Wrong username/password
+      if (e.response?.statusCode == 400) {
+        return {"success": false, "message": "Invalid username or password"};
+      }
+
+      return {
+        "success": false,
+        "message": e.response?.data?["message"] ?? "Something went wrong",
+      };
+    }
   }
 }
