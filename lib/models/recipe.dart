@@ -1,18 +1,36 @@
-class Recipe {
-  final int id;
-   String name;
-  final String image;
-  final String cuisine;
-  final double rating;
-   int servings;
-  final int prepTimeMinutes;
-  final int cookTimeMinutes;
-  final String difficulty;
-  final List<String> ingredients;
-   List<String> instructions;
-  final int caloriesPerServing;
-  final List<String> tags;
-  final List<String> mealType;
+import 'package:hive_flutter/adapters.dart';
+
+part 'recipe.g.dart';
+@HiveType(typeId: 0)
+class Recipe extends HiveObject{
+  @HiveField(0)
+   int id;
+  @HiveField(1)
+  String name;
+  @HiveField(2)
+  String image;
+  @HiveField(3)
+  String cuisine;
+  @HiveField(4)
+  double rating;
+  @HiveField(5)
+  int servings;
+  @HiveField(6)
+  int prepTimeMinutes;
+  @HiveField(7)
+  int cookTimeMinutes;
+  @HiveField(8)
+  String difficulty;
+  @HiveField(9)
+  List<String> ingredients;
+  @HiveField(10)
+  List<String> instructions;
+  @HiveField(11)
+  int caloriesPerServing;
+  @HiveField(12)
+  List<String> tags;
+  @HiveField(13)
+  List<String> mealType;
 
   Recipe({
     required this.id,

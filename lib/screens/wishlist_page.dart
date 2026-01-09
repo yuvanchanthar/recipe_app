@@ -10,7 +10,7 @@ class WishlistPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wishlistProvider = Provider.of<WishlistProvider>(context);
-    final wishlist = wishlistProvider.wishlist;
+    final wishlist = wishlistProvider.wishlistItems;
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
@@ -98,7 +98,7 @@ class WishlistPage extends StatelessWidget {
                                   const Icon(Icons.star,
                                       size: 16, color: Colors.amber),
                                   const SizedBox(width: 4),
-                                  Text("${recipe.rating}"),
+                                  //Text("${recipe.rating}"),
                                 ],
                               ),
                             ],
@@ -109,7 +109,7 @@ class WishlistPage extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.favorite, color: Colors.red),
                           onPressed: () {
-                            wishlistProvider.toggleWishlist(recipe);
+                            wishlistProvider.removeFromWishlist(recipe.id);
                           },
                         ),
                       ],
